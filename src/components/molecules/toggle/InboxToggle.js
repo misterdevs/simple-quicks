@@ -6,8 +6,9 @@ export default function InboxToggle(props) {
     <InnerToggle
       color="text-indicator-purple"
       bgColor="bg-indicator-purple"
-      isActive={props.isActive}
-      className={props.className}
+      className={`${props.isExpand ? "-translate-x-12" : ""} duration-300`}
+      isExpand={props.isExpand}
+      title="Inbox"
     >
       <InboxIcon />
     </InnerToggle>

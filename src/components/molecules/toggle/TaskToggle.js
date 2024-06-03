@@ -6,8 +6,11 @@ export default function TaskToggle(props) {
     <InnerToggle
       color="text-indicator-orange"
       bgColor="bg-indicator-orange"
-      isActive={props.isActive}
-      className={props.className}
+      className={`${
+        props.isExpand ? "-translate-x-12" : "translate-x-12"
+      } duration-300`}
+      isExpand={props.isExpand}
+      title="Task"
     >
       <TaskIcon />
     </InnerToggle>
