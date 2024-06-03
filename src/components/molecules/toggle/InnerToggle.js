@@ -1,20 +1,31 @@
 import ToggleButton from "@/components/atom/button/ToggleButton";
+import { toggleName } from "@/constants/constants";
 import { useEffect, useState } from "react";
 
 export default function InnerToggle(props) {
-  const [isActive, setIsActive] = useState(false);
-
   return (
     <div className={`${props.className}`}>
-      {props.isExpand && (
-        <div className={`text-center text-xs font-light mb-1`}>
+      {props.isExpand && !props.isActive && (
+        <div className={`text-center text-xs font-light mb-2`}>
           {props.title}
         </div>
       )}
       <ToggleButton
-        color={isActive ? "text-white" : props.color}
-        bg={isActive ? props.bgColor : "bg-white"}
-        onClick={() => setIsActive(!isActive)}
+        color={
+          props.isActive === props.title.toLowerCase()
+            ? "text-white"
+            : props.color
+        }
+        bg={
+          props.isActive === props.title.toLowerCase()
+            ? props.bgColor
+            : "bg-white"
+        }
+        onClick={() => {
+          props.isActive === props.title.toLowerCase()
+            ? props.setIsActive(false)
+            : props.setIsActive(toggleName[props.title.toLowerCase()]);
+        }}
       >
         {props.children}
       </ToggleButton>

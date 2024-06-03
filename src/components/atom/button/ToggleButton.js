@@ -1,11 +1,11 @@
 export default function ToggleButton(props) {
   return (
     <button
-      className={`flex items-center justify-center h-10 w-10 rounded-full ${props.bg} ${props.className}`}
+      className={`flex items-center justify-center h-14 w-14 rounded-full ${props.bg} ${props.className}`}
       onClick={props.onClick}
     >
       <span
-        className={`${props.color} h-5 w-5  flex items-center justify-center`}
+        className={`${props.color} h-6 w-6  flex items-center justify-center`}
       >
         {props.children}
       </span>

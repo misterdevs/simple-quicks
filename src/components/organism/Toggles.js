@@ -4,17 +4,32 @@ import InboxToggle from "../molecules/toggle/InboxToggle";
 import TaskToggle from "../molecules/toggle/TaskToggle";
 import ToggleMain from "../molecules/toggle/ToggleMain";
 
-export default function Toggles() {
-  const [isExpand, setIsExpand] = useState(true);
+export default function Toggles(props) {
+  const [isExpand, setIsExpand] = useState(false);
+
   return (
     <ToggleContainer>
-      <div className="flex space-x-2">
-        <TaskToggle isExpand={isExpand} />
-        <InboxToggle isExpand={isExpand} />
+      <div
+        className={`flex space-x-6 duration-300 ${
+          props.isActive && "translate-x-16"
+        }`}
+      >
+        <TaskToggle
+          isExpand={isExpand}
+          isActive={props.isActive}
+          setIsActive={props.setIsActive}
+        />
+        <InboxToggle
+          isExpand={isExpand}
+          isActive={props.isActive}
+          setIsActive={props.setIsActive}
+        />
       </div>
-      <ToggleContainer>
-        <ToggleMain onClick={() => setIsExpand(!isExpand)} />
-      </ToggleContainer>
+      {!props.isActive && (
+        <ToggleContainer>
+          <ToggleMain onClick={() => setIsExpand(!isExpand)} />
+        </ToggleContainer>
+      )}
     </ToggleContainer>
   );
 }
