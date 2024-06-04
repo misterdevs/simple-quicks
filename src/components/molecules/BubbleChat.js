@@ -22,7 +22,7 @@ export default function BubbleChat(props) {
     ];
   return (
     <div
-      className={`flex flex-col font-light ${
+      className={`flex flex-col font-light text-sm ${
         props.isMe ? "items-end" : "items-start"
       }`}
     >
@@ -43,7 +43,7 @@ export default function BubbleChat(props) {
         }`}
       >
         <p className="break-words">{props.message}</p>
-        <span className="text-sm">
+        <span className="text-xs">
           {new Date(props.dateTime).getHours().toString().padStart(2, "0") +
             ":" +
             new Date(props.dateTime).getMinutes().toString().padStart(2, "0")}

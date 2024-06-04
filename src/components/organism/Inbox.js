@@ -29,7 +29,7 @@ export default function Inbox(props) {
     <PopupContainer>
       {roomChat !== null && (
         <RoomContainer>
-          <div className="flex flex-row w-full justify-between items-center space-x-3 pb-3 border-b-2">
+          <div className="flex flex-row w-full justify-between items-center space-x-3 pb-3 border-b-2 text-sm">
             <div className="flex flex-row space-x-3 items-center">
               <button onClick={() => setRoomChat(null)}>
                 <ArrowLeftIcon className="w-6 h-6" />
