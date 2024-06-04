@@ -11,7 +11,7 @@ export default function Toggles(props) {
     <ToggleContainer>
       <div
         className={`flex space-x-6 duration-300 ${
-          props.isActive && "translate-x-16"
+          props.isActive && "translate-x-20"
         }`}
       >
         <TaskToggle

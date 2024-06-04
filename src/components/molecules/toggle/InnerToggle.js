@@ -6,7 +6,7 @@ export default function InnerToggle(props) {
   return (
     <div className={`${props.className}`}>
       {props.isExpand && !props.isActive && (
-        <div className={`text-center text-xs font-light mb-2`}>
+        <div className={`text-center text-xs text-white font-light mb-2`}>
           {props.title}
         </div>
       )}
