@@ -1,7 +1,7 @@
 export default function ToggleButton(props) {
   return (
     <button
-      className={`flex items-center justify-center h-14 w-14 rounded-full ${props.bg} ${props.className}`}
+      className={`flex items-center justify-center h-14 w-14 rounded-full text-gray-800 ${props.bg} ${props.className}`}
       onClick={props.onClick}
     >
       <span
