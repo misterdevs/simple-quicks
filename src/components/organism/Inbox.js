@@ -49,11 +49,12 @@ export default function Inbox(props) {
           </div>
           <div className="overflow-y-auto h-full py-3">
             <div className="flex flex-col space-y-5 pr-3 " ref={room}>
-              {chatList[0].map((chat, index) => {
+              {chatList[roomChat]?.map((chat, index) => {
                 return (
                   <>
                     {index > 0 &&
-                      (chat.dateTime !== chatList[0][index - 1].dateTime ||
+                      (chat.dateTime !==
+                        chatList[roomChat][index - 1].dateTime ||
                         chat.isUnreadMessage) && (
                         <div className="flex justify-between items-center">
                           <span
@@ -121,15 +122,24 @@ export default function Inbox(props) {
           ) : (
             <RoomListContainer>
               {roomChatList.map((room, index) => {
+                const lastMassage =
+                  chatList[index] &&
+                  chatList[index][chatList[index].length - 1];
                 return (
                   <RoomList
                     key={index}
                     index={index}
                     isGroup={room.isGroup}
                     roomName={room.roomName}
-                    recentMessage={room.recentMessage}
-                    lastSender={room.lastSender}
-                    isUnreadMessage={room.isUnreadMessage}
+                    recentMessage={
+                      chatList[index] ? lastMassage.message : room.recentMessage
+                    }
+                    lastSender={
+                      chatList[index] ? lastMassage.sender : room.lastSender
+                    }
+                    isUnreadMessage={
+                      chatList[index] ? lastMassage.isUnreadMessage : false
+                    }
                     setRoomChat={setRoomChat}
                   />
                 );
