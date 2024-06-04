@@ -1,9 +1,12 @@
-import MessageContainer from "../atom/container/MessageContainer";
+import MessageContainer from "../atom/container/RoomListContainer";
 import { PersonIcon } from "../atom/icon";
 
 export default function RoomList(props) {
   return (
-    <div className="flex space-x-3 py-8">
+    <div
+      className="flex space-x-3 py-8 hover:cursor-pointer"
+      onClick={() => props.setRoomChat(props.index)}
+    >
       {/* profile picture */}
       <div className="flex shrink-0 justify-center w-12">
         {props.isGroup && (

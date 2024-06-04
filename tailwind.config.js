@@ -29,12 +29,12 @@ module.exports = {
         },
         chat: {
           primary: {
-            orange: "#FCEED3",
-            purple: "#EEDCF",
+            yellow: "#FCEED3",
+            purple: "#EEDCFF",
             green: "#D2F2EA",
           },
           secondary: {
-            orange: "#E5A443",
+            yellow: "#E5A443",
             purple: "#9B51E0",
             green: "#43B78D",
           },
