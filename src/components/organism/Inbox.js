@@ -47,7 +47,7 @@ export default function Inbox(props) {
               <CrossIcon className="w-6 h-6" />
             </div>
           </div>
-          <div className="overflow-y-auto h-full py-3">
+          <div className="overflow-y-auto h-full py-3 text-sm">
             <div className="flex flex-col space-y-5 pr-3 " ref={room}>
               {chatList[roomChat]?.map((chat, index) => {
                 return (
