@@ -4,8 +4,11 @@ import TaskListContainer from "../atom/container/TaskListContainer";
 import TaskBar from "../molecules/TaskBar";
 import { nanoid } from "nanoid";
 import NewTaskBar from "../molecules/NewTaskBar";
+import SearchBar from "../molecules/SearcBar";
+import LoadingCircle from "../molecules/LoadingCircle";
 
 export default function Task() {
+  const [isLoading, setIsLoading] = useState(true);
   const [taskList, setTaskList] = useState([]);
   const [isCreateMode, setIsCreateMode] = useState(false);
 
@@ -18,6 +21,9 @@ export default function Task() {
     } else {
       setTaskList(JSON.parse(localStorage.getItem("taskList")));
     }
+    setTimeout(() => {
+      setIsLoading(false);
+    }, 1000);
   }, []);
   return (
     <PopupContainer>
@@ -37,27 +43,32 @@ export default function Task() {
           )}
         </div>
         {/* Task Lisk */}
-        <TaskListContainer>
-          {isCreateMode && (
-            <NewTaskBar
-              setTaskList={setTaskList}
-              setIsCreateMode={setIsCreateMode}
-            />
-          )}
-          {taskList?.map((task) => {
-            return (
-              <TaskBar
-                key={task.id}
-                id={task.id}
-                taskName={task.taskName}
-                date={task.date}
-                description={task.description}
+
+        {isLoading ? (
+          <LoadingCircle title="Loading Task..." />
+        ) : (
+          <TaskListContainer>
+            {isCreateMode && (
+              <NewTaskBar
                 setTaskList={setTaskList}
-                isChecked={task.isChecked}
+                setIsCreateMode={setIsCreateMode}
               />
-            );
-          })}
-        </TaskListContainer>
+            )}
+            {taskList?.map((task) => {
+              return (
+                <TaskBar
+                  key={task.id}
+                  id={task.id}
+                  taskName={task.taskName}
+                  date={task.date}
+                  description={task.description}
+                  setTaskList={setTaskList}
+                  isChecked={task.isChecked}
+                />
+              );
+            })}
+          </TaskListContainer>
+        )}
       </div>
     </PopupContainer>
   );
