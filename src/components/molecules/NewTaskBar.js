@@ -67,7 +67,6 @@ export default function NewTaskBar(props) {
             name="taskName"
             className="focus:outline-none w-full"
             placeholder="Task Name"
-            onBlur={(s) => addTask()}
           />
 
           <div className="flex flex-row space-x-3  items-center text-xs">
@@ -96,7 +95,6 @@ export default function NewTaskBar(props) {
                 type="date"
                 defaultValue={props.date}
                 className="px-3 py-2 border border-primary-gray-light rounded-xl"
-                onBlur={(s) => addTask()}
               />
             </div>
             <div className="flex flex-row space-x-3 items-start">
@@ -113,8 +111,24 @@ export default function NewTaskBar(props) {
                 ref={descriptionRef}
                 className="w-full focus:outline-none"
                 placeholder="No Description"
-                onBlur={(s) => addTask()}
               />
+            </div>
+            <div className="flex w-full space-x-3 justify-end">
+              <button
+                className="bg-indicator-red rounded-md px-3 py-2 text-white"
+                onClick={() => props.setIsCreateMode(false)}
+              >
+                Cancel
+              </button>
+              <button
+                className="bg-primary-blue rounded-md px-3 py-2 text-white"
+                onClick={() => {
+                  addTask();
+                  props.setIsCreateMode(false);
+                }}
+              >
+                Save
+              </button>
             </div>
           </div>
         )}

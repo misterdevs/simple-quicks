@@ -27,18 +27,23 @@ export default function Task() {
             <option value="my-task">My Task</option>
             <option value="works-task">Work's Task</option>
           </select>
-          <button
-            className={`text-white  rounded-md px-3 py-2 ${
-              isCreateMode ? "bg-indicator-red" : "bg-primary-blue"
-            }`}
-            onClick={() => setIsCreateMode(!isCreateMode)}
-          >
-            {isCreateMode ? "Cancel" : "New Task"}
-          </button>
+          {!isCreateMode && (
+            <button
+              className={`text-white  rounded-md px-3 py-2 bg-primary-blue`}
+              onClick={() => setIsCreateMode(true)}
+            >
+              New Task
+            </button>
+          )}
         </div>
         {/* Task Lisk */}
         <TaskListContainer>
-          {isCreateMode && <NewTaskBar setTaskList={setTaskList} />}
+          {isCreateMode && (
+            <NewTaskBar
+              setTaskList={setTaskList}
+              setIsCreateMode={setIsCreateMode}
+            />
+          )}
           {taskList?.map((task) => {
             return (
               <TaskBar
