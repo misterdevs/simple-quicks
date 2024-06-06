@@ -8,6 +8,7 @@ import RoomContainer from "../atom/container/RoomContainer";
 import ArrowLeftIcon from "../atom/icon/ArrowLeftIcon";
 import CrossIcon from "../atom/icon/CrossIcon";
 import BubbleChat from "../molecules/BubbleChat";
+import { SpinnerIcon } from "../atom/icon";
 
 export default function Inbox(props) {
   const room = useRef(null);
@@ -96,6 +97,16 @@ export default function Inbox(props) {
               })}
             </div>
           </div>
+          {!roomChatList[roomChat].isGroup && (
+            <div className="absolute bottom-24 bg-primary-blue bg-opacity-50 rounded-xl  w-11/12 text-sm py-4 px-3">
+              <div className="flex flex-row items-center space-x-3">
+                <SpinnerIcon className="w-5 h-5" />
+                <span className="font-semibold text-primary-gray-dark">
+                  Please wait while we connect you with one of our team ...
+                </span>
+              </div>
+            </div>
+          )}
           <div className="flex flex-row space-x-3 py-2">
             <div className="w-full border-2 py-2 px-3 rounded-xl">
               <input
