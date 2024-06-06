@@ -11,10 +11,11 @@ export default function TaskBar(props) {
   const taskNameRef = useRef();
   const dateRef = useRef();
   const descriptionRef = useRef();
+  const checkRef = useRef();
 
   const [isOpen, setIsOpen] = useState(false);
   const [isDueDate, setIsDueDate] = useState(false);
-  const [isChecked, setIsChecked] = useState(false);
+  const [isChecked, setIsChecked] = useState(props.isChecked);
 
   const date = new Date(props.date);
   const localStorageName = "taskList";
@@ -28,6 +29,21 @@ export default function TaskBar(props) {
           taskName: taskNameRef.current.value,
           date: dateRef.current.value,
           description: descriptionRef.current.value,
+          isChecked: isChecked,
+        };
+      } else {
+        return task;
+      }
+    });
+    props.setTaskList(updatedTask);
+    localStorage.setItem(localStorageName, JSON.stringify(updatedTask));
+  }
+  function updateCheck() {
+    const updatedTask = storage.map((task) => {
+      if (task.id === props.id) {
+        return {
+          ...task,
+          isChecked: !isChecked,
         };
       } else {
         return task;
@@ -49,10 +65,15 @@ export default function TaskBar(props) {
       }`}
     >
       <input
+        ref={checkRef}
         type="checkbox"
         name="check"
         className="mt-1"
-        onClick={() => setIsChecked(!isChecked)}
+        defaultChecked={isChecked}
+        onClick={() => {
+          setIsChecked(!isChecked);
+          updateCheck();
+        }}
       />
       <div className="flex flex-col space-y-3 w-full">
         <div

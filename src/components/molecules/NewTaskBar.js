@@ -30,6 +30,7 @@ export default function NewTaskBar(props) {
             : taskNameRef.current.value,
         date: dateRef.current.value,
         description: descriptionRef.current.value,
+        isChecked: false,
       },
     ];
     props.setTaskList(task);

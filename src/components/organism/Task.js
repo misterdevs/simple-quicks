@@ -48,6 +48,7 @@ export default function Task() {
                 date={task.date}
                 description={task.description}
                 setTaskList={setTaskList}
+                isChecked={task.isChecked}
               />
             );
           })}
@@ -64,11 +65,13 @@ export const defaultTaskList = [
     date: "2021-05-06",
     description:
       "Closing off this case since this application has been cancelled. No one really understand how this case could possibly be cancelled. The options and the documents within this document were totally a guaranteed for a success!",
+    isChecked: false,
   },
   {
     id: "3KopMD5sbTbpjVmxhgeOa",
     taskName: "Close off Case #012920-RODRIGUES, Amiguel",
     date: "",
     description: "",
+    isChecked: false,
   },
 ];
