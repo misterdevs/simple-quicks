@@ -1,4 +1,4 @@
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import {
   ChevronDown,
   ChevronUp,
@@ -20,6 +20,17 @@ export default function TaskBar(props) {
   const date = new Date(props.date);
   const localStorageName = "taskList";
   const storage = JSON.parse(localStorage.getItem(localStorageName));
+
+  function isDateLessAnd7Days(targetDate) {
+    const today = new Date();
+    const target = new Date(targetDate);
+    today.setHours(0, 0, 0, 0);
+    target.setHours(0, 0, 0, 0);
+    const diffInMs = target - today;
+    const diffInDays = diffInMs / (1000 * 60 * 60 * 24);
+
+    return diffInDays <= 7 && diffInDays >= 0 ? diffInDays : false;
+  }
 
   function updateTask() {
     const updatedTask = storage.map((task) => {
@@ -58,11 +69,13 @@ export default function TaskBar(props) {
     props.setTaskList(updatedTask);
     localStorage.setItem(localStorageName, JSON.stringify(updatedTask));
   }
+
+  useEffect(() => {
+    setIsDueDate(isDateLessAnd7Days(props.date));
+  }, []);
   return (
     <div
-      className={`flex flex-row py-4 space-x-3 hover:cursor-pointer ${
-        isOpen ? "items-start" : "items-center"
-      }`}
+      className={`flex flex-row py-4 space-x-3 hover:cursor-pointer items-start`}
     >
       <input
         ref={checkRef}
@@ -77,7 +90,7 @@ export default function TaskBar(props) {
       />
       <div className="flex flex-col space-y-3 w-full">
         <div
-          className={`flex flex-row items-center space-x-3 w-full justify-between  ${
+          className={`flex flex-row items-start space-x-3 w-full justify-between  ${
             isChecked && "opacity-50"
           }`}
         >
@@ -102,9 +115,9 @@ export default function TaskBar(props) {
             </span>
           )}
 
-          <div className="flex flex-row space-x-3  items-center text-xs">
+          <div className="flex flex-row space-x-2  items-center text-xs shrink-0">
             {isDueDate && (
-              <span className=" text-indicator-red">2 Days Left</span>
+              <span className=" text-indicator-red">{isDueDate} Days Left</span>
             )}
             {props.date && <span>{date.toLocaleDateString("en-US")}</span>}
             <button onClick={() => setIsOpen(!isOpen)}>
