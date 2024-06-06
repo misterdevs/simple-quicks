@@ -77,7 +77,6 @@ export default function TaskBar(props) {
   return (
     <div
       className={`flex flex-row py-4 space-x-3 hover:cursor-pointer items-start`}
-      onBlur={() => setIsOpenMore(false)}
     >
       <input
         ref={checkRef}
