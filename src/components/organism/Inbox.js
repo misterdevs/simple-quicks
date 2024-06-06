@@ -106,10 +106,10 @@ export default function Inbox(props) {
           </div>
           {isLoadingChat &&
             roomChatList[roomChat].roomName === "FastVisa Support" && (
-              <div className="absolute bottom-24 bg-primary-blue bg-opacity-50 rounded-xl  w-11/12 text-sm py-4 px-3">
+              <div className="absolute bottom-24 bg-primary-blue bg-opacity-20 rounded-xl  w-11/12 text-sm py-4 px-3">
                 <div className="flex flex-row items-center space-x-3">
                   <SpinnerIcon className="w-5 h-5" />
-                  <span className="font-semibold text-primary-gray-dark">
+                  <span className="font-semibold text-primary-gray-light">
                     Please wait while we connect you with one of our team ...
                   </span>
                 </div>
