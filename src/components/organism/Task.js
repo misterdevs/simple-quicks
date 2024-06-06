@@ -3,9 +3,11 @@ import PopupContainer from "../atom/container/PopupContainer";
 import TaskListContainer from "../atom/container/TaskListContainer";
 import TaskBar from "../molecules/TaskBar";
 import { nanoid } from "nanoid";
+import NewTaskBar from "../molecules/NewTaskBar";
 
 export default function Task() {
   const [taskList, setTaskList] = useState([]);
+  const [isCreateMode, setIsCreateMode] = useState(false);
 
   // console.log(nanoid());
 
@@ -25,12 +27,18 @@ export default function Task() {
             <option value="my-task">My Task</option>
             <option value="works-task">Work's Task</option>
           </select>
-          <button className="bg-primary-blue text-white  rounded-md px-3 py-2">
-            New Task
+          <button
+            className={`text-white  rounded-md px-3 py-2 ${
+              isCreateMode ? "bg-indicator-red" : "bg-primary-blue"
+            }`}
+            onClick={() => setIsCreateMode(!isCreateMode)}
+          >
+            {isCreateMode ? "Cancel" : "New Task"}
           </button>
         </div>
         {/* Task Lisk */}
         <TaskListContainer>
+          {isCreateMode && <NewTaskBar setTaskList={setTaskList} />}
           {taskList?.map((task) => {
             return (
               <TaskBar
