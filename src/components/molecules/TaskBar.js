@@ -77,6 +77,7 @@ export default function TaskBar(props) {
   return (
     <div
       className={`flex flex-row py-4 space-x-3 hover:cursor-pointer items-start`}
+      onBlur={() => setIsOpenMore(false)}
     >
       <input
         ref={checkRef}
@@ -132,7 +133,7 @@ export default function TaskBar(props) {
               <ThreeDots className="w-5 h-5 text-primary-gray-light" />
             </button>
             {isOpenMore && (
-              <div className="origin-top-right absolute right-0 mt-20  w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+              <div className="origin-top-right absolute right-4 md:right-0 mt-20  w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
                 <div className="py-1" role="none">
                   <button
                     className="flex justify-start px-4 py-2 text-sm text-indicator-red hover:bg-gray-100  w-full "
