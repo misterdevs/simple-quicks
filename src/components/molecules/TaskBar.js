@@ -36,6 +36,12 @@ export default function TaskBar(props) {
     props.setTaskList(updatedTask);
     localStorage.setItem(localStorageName, JSON.stringify(updatedTask));
   }
+
+  function deleteTask() {
+    const updatedTask = storage.filter((task) => task.id !== props.id);
+    props.setTaskList(updatedTask);
+    localStorage.setItem(localStorageName, JSON.stringify(updatedTask));
+  }
   return (
     <div
       className={`flex flex-row py-4 space-x-3 hover:cursor-pointer ${
@@ -87,7 +93,9 @@ export default function TaskBar(props) {
                 <ChevronDown className="w-5 h-5 text-primary-gray-light" />
               )}
             </button>
-            <ThreeDots className="w-5 h-5 text-primary-gray-light" />
+            <button onClick={() => deleteTask()}>
+              <ThreeDots className="w-5 h-5 text-primary-gray-light" />
+            </button>
           </div>
         </div>
         {isOpen && (
