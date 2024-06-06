@@ -13,12 +13,19 @@ import { SpinnerIcon } from "../atom/icon";
 export default function Inbox(props) {
   const room = useRef(null);
   const [isLoading, setIsLoading] = useState(true);
+  const [isLoadingChat, setIsLoadingChat] = useState(true);
   const [roomChat, setRoomChat] = useState(null);
   useEffect(() => {
     setTimeout(() => {
       setIsLoading(false);
     }, 1000);
   }, []);
+  useEffect(() => {
+    setIsLoadingChat(true);
+    setTimeout(() => {
+      setIsLoadingChat(false);
+    }, 1500);
+  }, [roomChat]);
   useEffect(() => {
     if (roomChat !== null) {
       room.current.scrollIntoView({
@@ -97,16 +104,17 @@ export default function Inbox(props) {
               })}
             </div>
           </div>
-          {!roomChatList[roomChat].isGroup && (
-            <div className="absolute bottom-24 bg-primary-blue bg-opacity-50 rounded-xl  w-11/12 text-sm py-4 px-3">
-              <div className="flex flex-row items-center space-x-3">
-                <SpinnerIcon className="w-5 h-5" />
-                <span className="font-semibold text-primary-gray-dark">
-                  Please wait while we connect you with one of our team ...
-                </span>
+          {isLoadingChat &&
+            roomChatList[roomChat].roomName === "FastVisa Support" && (
+              <div className="absolute bottom-24 bg-primary-blue bg-opacity-50 rounded-xl  w-11/12 text-sm py-4 px-3">
+                <div className="flex flex-row items-center space-x-3">
+                  <SpinnerIcon className="w-5 h-5" />
+                  <span className="font-semibold text-primary-gray-dark">
+                    Please wait while we connect you with one of our team ...
+                  </span>
+                </div>
               </div>
-            </div>
-          )}
+            )}
           <div className="flex flex-row space-x-3 py-2">
             <div className="w-full border-2 py-2 px-3 rounded-xl">
               <input
@@ -133,7 +141,7 @@ export default function Inbox(props) {
           ) : (
             <RoomListContainer>
               {roomChatList.map((room, index) => {
-                const lastMassage =
+                const lastMessage =
                   chatList[index] &&
                   chatList[index][chatList[index].length - 1];
                 return (
@@ -143,13 +151,19 @@ export default function Inbox(props) {
                     isGroup={room.isGroup}
                     roomName={room.roomName}
                     recentMessage={
-                      chatList[index] ? lastMassage.message : room.recentMessage
+                      Boolean(lastMessage?.message)
+                        ? lastMessage.message
+                        : room.recentMessage
                     }
                     lastSender={
-                      chatList[index] ? lastMassage.sender : room.lastSender
+                      Boolean(lastMessage?.sender)
+                        ? lastMessage.sender
+                        : room.lastSender
                     }
                     isUnreadMessage={
-                      chatList[index] ? lastMassage.isUnreadMessage : false
+                      Boolean(lastMessage?.isUnreadMessage)
+                        ? lastMessage.isUnreadMessage
+                        : false
                     }
                     setRoomChat={setRoomChat}
                   />
@@ -204,6 +218,26 @@ export const chatList = [
       isUnreadMessage: true,
     },
   ],
+  [],
+  [],
+  [
+    {
+      sender: "FastVisa Support",
+      message:
+        "Hey there. Welcome to your inbox! Contact us for more information and help about anything! We’ll send you a response as soon as possible.",
+      dateTime: "2021-06-09T19:32:00",
+      isMe: false,
+      isUnreadMessage: false,
+    },
+    {
+      sender: "",
+      message: "Hi, I need help with something can you help me ?",
+      dateTime: "2021-06-09T19:32:00",
+      isMe: true,
+      isUnreadMessage: false,
+    },
+  ],
+  [],
 ];
 
 export const roomChatList = [
