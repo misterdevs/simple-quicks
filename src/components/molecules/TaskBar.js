@@ -16,6 +16,7 @@ export default function TaskBar(props) {
   const [isOpen, setIsOpen] = useState(false);
   const [isDueDate, setIsDueDate] = useState(false);
   const [isChecked, setIsChecked] = useState(props.isChecked);
+  const [isOpenMore, setIsOpenMore] = useState(false);
 
   const date = new Date(props.date);
   const localStorageName = "taskList";
@@ -127,9 +128,24 @@ export default function TaskBar(props) {
                 <ChevronDown className="w-5 h-5 text-primary-gray-light" />
               )}
             </button>
-            <button onClick={() => deleteTask()}>
+            <button onClick={() => setIsOpenMore(!isOpenMore)}>
               <ThreeDots className="w-5 h-5 text-primary-gray-light" />
             </button>
+            {isOpenMore && (
+              <div className="origin-top-right absolute right-0 mt-20  w-40 rounded-md shadow-lg bg-white ring-1 ring-black ring-opacity-5 focus:outline-none">
+                <div className="py-1" role="none">
+                  <button
+                    className="flex justify-start px-4 py-2 text-sm text-indicator-red hover:bg-gray-100  w-full "
+                    onClick={() => {
+                      deleteTask();
+                      setIsOpenMore(false);
+                    }}
+                  >
+                    Delete
+                  </button>
+                </div>
+              </div>
+            )}
           </div>
         </div>
         {isOpen && (
