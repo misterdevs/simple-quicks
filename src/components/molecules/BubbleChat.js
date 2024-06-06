@@ -1,3 +1,5 @@
+import { ThreeDots } from "../atom/icon";
+
 export default function BubbleChat(props) {
   const color = {
     // purple: {
@@ -36,18 +38,27 @@ export default function BubbleChat(props) {
         {props.isMe ? "You" : props.sender}
       </span>
       <div
-        className={`flex flex-col max-w-md py-2 px-3 rounded-lg space-y-1 ${
-          props.isMe
-            ? "bg-chat-primary-purple"
-            : color[randomColor()]["bgColor"]
+        className={`flex flex-row items-start ${
+          !props.isMe && "flex-row-reverse"
         }`}
       >
-        <p className="break-words">{props.message}</p>
-        <span className="text-xs">
-          {new Date(props.dateTime).getHours().toString().padStart(2, "0") +
-            ":" +
-            new Date(props.dateTime).getMinutes().toString().padStart(2, "0")}
-        </span>
+        <button>
+          <ThreeDots className="h-5 w-5 shrink-0" />
+        </button>
+        <div
+          className={`flex flex-col max-w-md py-2 px-3 rounded-lg space-y-1 ${
+            props.isMe
+              ? "bg-chat-primary-purple"
+              : color[randomColor()]["bgColor"]
+          }`}
+        >
+          <p className="break-words">{props.message}</p>
+          <span className="text-xs">
+            {new Date(props.dateTime).getHours().toString().padStart(2, "0") +
+              ":" +
+              new Date(props.dateTime).getMinutes().toString().padStart(2, "0")}
+          </span>
+        </div>
       </div>
     </div>
   );
