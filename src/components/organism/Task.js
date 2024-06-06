@@ -1,8 +1,22 @@
+import { useEffect, useState } from "react";
 import PopupContainer from "../atom/container/PopupContainer";
 import TaskListContainer from "../atom/container/TaskListContainer";
 import TaskBar from "../molecules/TaskBar";
+import { nanoid } from "nanoid";
 
 export default function Task() {
+  const [taskList, setTaskList] = useState([]);
+
+  // console.log(nanoid());
+
+  useEffect(() => {
+    if (!localStorage.getItem("taskList")) {
+      localStorage.setItem("taskList", JSON.stringify(defaultTaskList));
+      setTaskList(JSON.parse(localStorage.getItem("taskList")));
+    } else {
+      setTaskList(JSON.parse(localStorage.getItem("taskList")));
+    }
+  }, []);
   return (
     <PopupContainer>
       <div className="flex flex-col w-full h-full space-y-3 text-sm">
@@ -17,18 +31,36 @@ export default function Task() {
         </div>
         {/* Task Lisk */}
         <TaskListContainer>
-          <TaskBar
-            taskName="Close off Case #012920-RODRIGUES, Amiguel"
-            date="2021-05-06"
-            description="Closing off this case since this application has been cancelled. No one really understand how this case could possibly be cancelled. The options and the documents within this document were totally a guaranteed for a success!"
-          />
-          <TaskBar
-            taskName="Close off Case #012920-RODRIGUES, Amiguel"
-            date=""
-            description=""
-          />
+          {taskList?.map((task) => {
+            return (
+              <TaskBar
+                key={task.id}
+                id={task.id}
+                taskName={task.taskName}
+                date={task.date}
+                description={task.description}
+                setTaskList={setTaskList}
+              />
+            );
+          })}
         </TaskListContainer>
       </div>
     </PopupContainer>
   );
 }
+
+export const defaultTaskList = [
+  {
+    id: "b9y_i_TUNOiPE44rzz8ho",
+    taskName: "Close off Case #012920-RODRIGUES, Amiguel",
+    date: "2021-05-06",
+    description:
+      "Closing off this case since this application has been cancelled. No one really understand how this case could possibly be cancelled. The options and the documents within this document were totally a guaranteed for a success!",
+  },
+  {
+    id: "3KopMD5sbTbpjVmxhgeOa",
+    taskName: "Close off Case #012920-RODRIGUES, Amiguel",
+    date: "",
+    description: "",
+  },
+];
